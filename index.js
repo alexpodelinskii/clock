@@ -1,26 +1,35 @@
-let timerId; // переменная, которая будет хранить ID таймера
+let timerId;
 
-
-const startButton = ДОКУМЕНТ.ГЕТэЛЕМЕНТбАЙаЙДИ(КАКОЙ - ТО);
-startButton.ЭДэВЕНТлИСТНЕР('ТЯП', function () {
-    // НУЖНО ПОГУГЛИТЬ ЧТО ТАКОЕ setInterval
-    timerId = СЕТиНТРЕВАЛ(updateClock, ОДНАсЕКУНДА); // запускаем  updateClock() каждую секунду
+const startButton = document.getElementById('start');
+startButton.addEventListener('click', function () {
+    if (timerId) clearInterval(timerId);
+    timerId = setInterval(updateClock, 1000);
 });
 
-
-const stopButton = ДОКУМЕНТ.ГЕТэЛЕМЕНТбАЙаЙДИ(КАКОЙ - ТО);
-stopButton.addEventListener('ТЯП', function () {
-    // НУЖНО ПОГУГЛИТЬ ЧТО ТАКОЕ clearInterval
-    clearInterval(timerId); // останавливаем таймер
+const stopButton = document.getElementById('stop');
+stopButton.addEventListener('click', function () {
+    clearInterval(timerId);
 });
-
 
 function updateClock() {
     const clock = document.getElementById('clock');
-    // НУЖНО ПОГУГЛИТЬ ЧТО ТАКОЕ new Date()
-    const now = НОВАЯдАТА();
-    const hours = now.ДАЙчАСЫ()
-    const minutes = now.ДАЙмИНУТЫ()
-    const seconds = now.ДАЙсЕКУНДЫ()
+
+    const now = new Date();
+
+    let hours = now.getHours();
+    if (hours < 9) {
+        hours = "0" + hours;
+    }
+
+    let minutes = now.getMinutes();
+    if (minutes < 9) {
+        minutes = "0" + minutes;
+    }
+
+    let seconds = now.getSeconds();
+    if (seconds < 9) {
+        seconds = "0" + seconds;
+    }
+
     clock.textContent = hours + ':' + minutes + ':' + seconds;
 }
